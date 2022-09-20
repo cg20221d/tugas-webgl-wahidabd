@@ -136,5 +136,5 @@ function main() {
     gl.drawArrays(gl.LINE_LOOP, 41, 4);
     gl.drawArrays(gl.TRIANGLE_FAN, 45, 4);
     gl.drawArrays(gl.TRIANGLE_FAN, 49, 7);
-    gl.drawArrays(gl.LINE_LOOP, 56, 7);
+    gl.drawArrays(gl.TRIANGLE_FAN, 56, 7);
 }
