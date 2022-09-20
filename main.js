@@ -48,7 +48,7 @@ function main() {
         -0.2, -0.45,
         -0.2, -0.1,
         -0.2, -0.1,
-        // (in)
+        // Number 9 (in)
         -0.37, 0.1,
         -0.37, 0.4,
         -0.2, 0.4,
@@ -58,7 +58,26 @@ function main() {
         0.2, -0.5,
         0.2, 0.5,
         0.1, 0.5,
-        0.1, -0.5
+        0.1, -0.5,
+
+        // Alphabet D (out)
+        0.23, -0.5,
+        0.23, 0.5,
+        0.45, 0.5,
+        0.5, 0.5,
+        0.58, 0.32,
+        0.58, -0.32,
+        0.5, -0.5,
+
+        // Alphabet D (in),
+        0.33, -0.4,
+        0.33, 0.4,
+        0.45, 0.4,
+        0.5, 0.3,
+        0.5, -0.2,
+        0.5, -0.3,
+        0.45, -0.4,
+
     ];
 
     var buffer = gl.createBuffer();
@@ -116,4 +135,6 @@ function main() {
     gl.drawArrays(gl.LINE_LOOP, 23, 18);
     gl.drawArrays(gl.LINE_LOOP, 41, 4);
     gl.drawArrays(gl.LINE_LOOP, 45, 4);
+    gl.drawArrays(gl.LINE_LOOP, 49, 7);
+    gl.drawArrays(gl.LINE_LOOP, 56, 7);
 }
