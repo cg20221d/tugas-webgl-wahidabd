@@ -33,13 +33,13 @@ function main() {
         -0.47, -0.1,
         -0.47, 0.5,
         -0.19, 0.5,
-        -0.07, 0.5,
-        -0.07, 0.5,
-        -0.07, 0.2,
-        -0.07, 0.3,
-        -0.07, 0.1,
-        -0.07, -0.3,
-        -0.07, -0.5,
+        -0.09, 0.5,
+        -0.09, 0.5,
+        -0.09, 0.2,
+        -0.09, 0.3,
+        -0.09, 0.1,
+        -0.09, -0.3,
+        -0.09, -0.5,
         -0.3, -0.5,
         -0.47, -0.5,
         -0.47, -0.3,
@@ -52,7 +52,13 @@ function main() {
         -0.37, 0.1,
         -0.37, 0.4,
         -0.2, 0.4,
-        -0.2, 0.1
+        -0.2, 0.1,
+
+        // Alphabet I
+        0.2, -0.5,
+        0.2, 0.5,
+        0.1, 0.5,
+        0.1, -0.5
     ];
 
     var buffer = gl.createBuffer();
@@ -78,9 +84,9 @@ function main() {
     var fragmentShaderCode = `
     precision mediump float;
     void main() {
-        float r = 0.0;
-        float g = 0.0;
-        float b = 1.0;
+        float r = 255.0;
+        float g = 255.0;
+        float b = 255.0;
         gl_FragColor = vec4(r, g, b, 1.0);
     }
     `;
@@ -103,10 +109,11 @@ function main() {
     gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(aPosition);
 
-    gl.clearColor(1.0, 0.65, 0.0, 1.0); // Orange
+    gl.clearColor(0.0, 0.0, 255.0, 1.0); // Orange
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.drawArrays(gl.LINE_LOOP, 0, 23);
     gl.drawArrays(gl.LINE_LOOP, 23, 18);
     gl.drawArrays(gl.LINE_LOOP, 41, 4);
+    gl.drawArrays(gl.LINE_LOOP, 45, 4);
 }
