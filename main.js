@@ -55,10 +55,10 @@ function main() {
         -0.2, 0.1,
 
         // Alphabet I
-        0.2, -0.5,
-        0.2, 0.5,
-        0.1, 0.5,
         0.1, -0.5,
+        0.1, 0.5,
+        0.2, 0.5,
+        0.2, -0.5,
 
         // Alphabet D (out)
         0.23, -0.5,
@@ -106,7 +106,7 @@ function main() {
         float r = 255.0;
         float g = 255.0;
         float b = 255.0;
-        gl_FragColor = vec4(r, g, b, 1.0);
+        gl_FragColor = vec4(r, g, b, 0.0);
     }
     `;
 
@@ -128,13 +128,13 @@ function main() {
     gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(aPosition);
 
-    gl.clearColor(0.0, 0.0, 255.0, 1.0); // Orange
+    gl.clearColor(0.0, 0.0, 255.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.drawArrays(gl.LINE_LOOP, 0, 23);
     gl.drawArrays(gl.LINE_LOOP, 23, 18);
     gl.drawArrays(gl.LINE_LOOP, 41, 4);
-    gl.drawArrays(gl.LINE_LOOP, 45, 4);
-    gl.drawArrays(gl.LINE_LOOP, 49, 7);
+    gl.drawArrays(gl.TRIANGLE_FAN, 45, 4);
+    gl.drawArrays(gl.TRIANGLE_FAN, 49, 7);
     gl.drawArrays(gl.LINE_LOOP, 56, 7);
 }
