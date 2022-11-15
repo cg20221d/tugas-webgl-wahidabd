@@ -39,11 +39,49 @@ function main() {
         31
     ];
 
+    const vertices9 = [
+        // Number 9 (out)
+        -0.47, -0.1,    0.0,    1, 1, 1,
+        -0.47, 0.5,     0.0,    1, 1, 1,
+        -0.19, 0.5,     0.0,    1, 1, 1,
+        -0.09, 0.5,     0.0,    1, 1, 1,
+        -0.09, 0.5,     0.0,    1, 1, 1,
+        -0.09, 0.2,     0.0,    1, 1, 1,
+        -0.09, 0.3,     0.0,    1, 1, 1,
+        -0.09, 0.1,     0.0,    1, 1, 1,
+        -0.09, -0.3,    0.0,    1, 1, 1,
+        -0.09, -0.5,    0.0,    1, 1, 1,
+        -0.3, -0.5,     0.0,    1, 1, 1,
+        -0.47, -0.5,    0.0,    1, 1, 1,
+        -0.47, -0.3,    0.0,    1, 1, 1,
+        -0.37, -0.3,    0.0,    1, 1, 1,
+        -0.37, -0.45,   0.0,    1, 1, 1,
+        -0.2, -0.45,    0.0,    1, 1, 1,
+        -0.2, -0.1,     0.0,    1, 1, 1,
+        -0.2, -0.1,     0.0,    1, 1, 1,
+    ];
+
+    const indices9 = [
+        0, 1, 2, 0, 2, 3,
+        4, 5, 6, 4, 6, 7,
+        8, 9, 10, 8, 10, 11,
+        12, 13, 14, 12, 14, 15,
+        16, 17, 18, 16, 18, 19,
+        20, 21, 22, 20, 22, 23
+    ];
+
     const objects = [
         {
             name: '3',
             vertices: vertices3,
             indices: indices3,
+            length: 31,
+            type: gl.LINE_LOOP
+        },
+        {
+            name: '9',
+            vertices: vertices9,
+            indices: indices9,
             length: 31,
             type: gl.LINE_LOOP
         }
@@ -163,6 +201,24 @@ function main() {
         drawing(objects[0].vertices, objects[0].indices, 0, objects[0].length, objects[0].type);
     }
 
+    const animate9 = () =>{
+        var model = mat4.create();
+
+        if (scaleDelta >= 2 || scaleDelta <= -0.5) {
+            scaleSpeed = scaleSpeed * -1;
+        }
+        scaleDelta += scaleSpeed;
+        mat4.translate(model, model, [0, 0, scaleDelta]);
+
+        var uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        var uView = gl.getUniformLocation(shaderProgram, "uView");
+        var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+        gl.uniformMatrix4fv(uModel,false, model);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uProjection, false, perspective);
+        drawing(objects[1].vertices, objects[1].indices, 0, objects[1].length, objects[1].type);
+    }
+
     // Kita mengajari GPU bagaimana caranya mengoleksi
     //  nilai posisi dari ARRAY_BUFFER
     //  untuk setiap verteks yang sedang diproses
@@ -210,7 +266,7 @@ function main() {
 
     function render() {
         gl.enable(gl.DEPTH_TEST);
-        gl.clearColor(1.0,      0.65,    0.0,    1.0);  // Oranye
+        gl.clearColor(0.0, 0.0, 255.0, 1.0);  // Biru
         //            Merah     Hijau   Biru    Transparansi
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         if (!freeze) {
@@ -235,7 +291,7 @@ function main() {
         gl.uniformMatrix4fv(uView, false, view);
         gl.uniformMatrix4fv(uProjection, false, perspective);
         animate3();
-        // animate9();
+        animate9();
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
