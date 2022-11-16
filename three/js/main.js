@@ -5,15 +5,15 @@ function main() {
     const vertices3 = [
         -0.9, 0.3,      0.0,    1, 1, 1,
         -0.9, 0.5,      0.0,    1, 1, 1,
-        -0.7, 0.5,      0.0,    1, 1, 1,
+        // -0.7, 0.5,      0.0,    1, 1, 1,
+        // -0.5, 0.5,      0.0,    1, 1, 1,
         -0.5, 0.5,      0.0,    1, 1, 1,
-        -0.5, 0.5,      0.0,    1, 1, 1,
-        -0.5, 0.1,      0.0,    1, 1, 1,
-        -0.5, 0.1,      0.0,    1, 1, 1,
-        -0.5, -0.1,     0.0,    1, 1, 1,
+        // -0.5, 0.1,      0.0,    1, 1, 1,
+        // -0.5, 0.1,      0.0,    1, 1, 1,
+        // -0.5, -0.1,     0.0,    1, 1, 1,
         -0.5, -0.5,     0.0,    1, 1, 1,
-        -0.5, -0.5,     0.0,    1, 1, 1,
-        -0.8, -0.5,     0.0,    1, 1, 1,
+        // -0.5, -0.5,     0.0,    1, 1, 1,
+        // -0.8, -0.5,     0.0,    1, 1, 1,
         -0.9, -0.5,     0.0,    1, 1, 1,
         -0.9, -0.3,     0.0,    1, 1, 1,
         -0.8, -0.3,     0.0,    1, 1, 1,
@@ -29,29 +29,24 @@ function main() {
     ];
 
     const indices3 = [
-        0, 1, 2, 0, 2, 3,
-        4, 5, 6, 4, 6, 7,
-        8, 9, 10, 8, 10, 11,
-        12, 13, 14, 12, 14, 15,
-        16, 17, 18, 16, 18, 19,
-        20, 21, 22, 20, 22, 23,
-        24, 25, 26, 27, 28, 29, 30,
-        31
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+        22, 23, 24, 25, 26
     ];
 
     const vertices9 = [
         // Number 9 (out)
         -0.47, -0.1,    0.0,    1, 1, 1,
         -0.47, 0.5,     0.0,    1, 1, 1,
-        -0.19, 0.5,     0.0,    1, 1, 1,
+        // -0.19, 0.5,     0.0,    1, 1, 1,
+        // -0.09, 0.5,     0.0,    1, 1, 1,
         -0.09, 0.5,     0.0,    1, 1, 1,
-        -0.09, 0.5,     0.0,    1, 1, 1,
-        -0.09, 0.2,     0.0,    1, 1, 1,
-        -0.09, 0.3,     0.0,    1, 1, 1,
+        // -0.09, 0.2,     0.0,    1, 1, 1,
+        // -0.09, 0.3,     0.0,    1, 1, 1,
         -0.09, 0.1,     0.0,    1, 1, 1,
-        -0.09, -0.3,    0.0,    1, 1, 1,
+        // -0.09, -0.3,    0.0,    1, 1, 1,
         -0.09, -0.5,    0.0,    1, 1, 1,
-        -0.3, -0.5,     0.0,    1, 1, 1,
+        // -0.3, -0.5,     0.0,    1, 1, 1,
         -0.47, -0.5,    0.0,    1, 1, 1,
         -0.47, -0.3,    0.0,    1, 1, 1,
         -0.37, -0.3,    0.0,    1, 1, 1,
@@ -62,12 +57,20 @@ function main() {
     ];
 
     const indices9 = [
-        0, 1, 2, 0, 2, 3,
-        4, 5, 6, 4, 6, 7,
-        8, 9, 10, 8, 10, 11,
-        12, 13, 14, 12, 14, 15,
-        16, 17, 18, 16, 18, 19,
-        20, 21, 22, 20, 22, 23
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
+    ];
+
+    const verticesIn9 = [
+        -0.37, 0.1, 0.0,    1, 1, 1,
+        -0.37, 0.4, 0.0,    1, 1, 1,
+        -0.2, 0.4,  0.0,    1, 1, 1,
+        -0.2, 0.1,  0.0,    1, 1, 1,
+    ];
+
+    const indicesIn9 = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14
     ];
 
     const objects = [
@@ -75,16 +78,23 @@ function main() {
             name: '3',
             vertices: vertices3,
             indices: indices3,
-            length: 31,
+            length: 3,
             type: gl.LINE_LOOP
         },
         {
             name: '9',
             vertices: vertices9,
             indices: indices9,
-            length: 31,
+            length: 9,
             type: gl.LINE_LOOP
-        }
+        },
+        {
+            name: '9',
+            vertices: verticesIn9,
+            indices: indicesIn9,
+            length: 4,
+            type: gl.LINE_LOOP
+        },
     ];
 
     // Vertex shader
@@ -219,6 +229,24 @@ function main() {
         drawing(objects[1].vertices, objects[1].indices, 0, objects[1].length, objects[1].type);
     }
 
+    const animateIn9 = () =>{
+        var model = mat4.create();
+
+        if (scaleDelta >= 2 || scaleDelta <= -0.5) {
+            scaleSpeed = scaleSpeed * -1;
+        }
+        scaleDelta += scaleSpeed;
+        mat4.translate(model, model, [0, 0, scaleDelta]);
+
+        var uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        var uView = gl.getUniformLocation(shaderProgram, "uView");
+        var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+        gl.uniformMatrix4fv(uModel,false, model);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uProjection, false, perspective);
+        drawing(objects[2].vertices, objects[2].indices, 0, objects[2].length, objects[2].type);
+    }
+
     // Kita mengajari GPU bagaimana caranya mengoleksi
     //  nilai posisi dari ARRAY_BUFFER
     //  untuk setiap verteks yang sedang diproses
@@ -292,6 +320,7 @@ function main() {
         gl.uniformMatrix4fv(uProjection, false, perspective);
         animate3();
         animate9();
+        animateIn9();
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
