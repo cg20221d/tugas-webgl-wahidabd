@@ -73,6 +73,48 @@ function main() {
         11, 12, 13, 14
     ];
 
+    const verticesI = [
+        -0.6, -2.5,   0.0,    1, 1, 1,
+        -0.6, -1.2,   0.0,    1, 1, 1,
+        -0.4, -1.2,   0.0,    1, 1, 1,
+        -0.4, -2.5,   0.0,    1, 1, 1,
+    ];
+
+    const indicesI = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14
+    ];
+
+    const verticesD = [
+        0.1, -2.5, 0.0,    1, 1, 1,
+        0.1, -1.2,  0.0,    1, 1, 1,
+        0.45, -1.2,  0.0,    1, 1, 1,
+        0.7, -1.2,   0.0,    1, 1, 1,
+        0.78, -1.32, 0.0,    1, 1, 1,
+        0.78, -2.32,0.0,    1, 1, 1,
+        0.7, -2.5,  0.0,    1, 1, 1,
+    ];
+
+    const indicesD = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 15, 16, 17
+    ];
+
+    const verticesInD = [
+        0.33, -2.4, 0.0,    0, 0, 255,
+        0.33, -1.4,  0.0,    0, 0, 255,
+        0.52, -1.4,  0.0,    0, 0, 255,
+        0.58, -1.5,   0.0,    0, 0, 255,
+        0.58, -2.2,  0.0,    0, 0, 255,
+        0.58, -2.3,  0.0,    0, 0, 255,
+        0.52, -2.4, 0.0,    0, 0, 255,
+    ];
+
+    const indicesInD = [
+        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+        11, 12, 13, 14, 15, 16, 17
+    ];
+
     const objects = [
         {
             name: '3',
@@ -94,6 +136,27 @@ function main() {
             indices: indicesIn9,
             length: 4,
             type: gl.LINE_LOOP
+        },
+        {
+            name: 'I',
+            vertices: verticesI,
+            indices: indicesI,
+            length: 4,
+            type: gl.TRIANGLE_FAN
+        },
+        {
+            name: 'D',
+            vertices: verticesD,
+            indices: indicesD,
+            length: 7,
+            type: gl.TRIANGLE_FAN
+        },
+        {
+            name: 'D',
+            vertices: verticesInD,
+            indices: indicesInD,
+            length: 7,
+            type: gl.TRIANGLE_FAN
         },
     ];
 
@@ -141,7 +204,11 @@ function main() {
     let horizontalDelta = 0.0;
     let verticalDelta = 0.0;
     let scaleDelta = 0.0;
-    let scaleSpeed = 0.0097;
+    let scaleSpeed = 0.05;
+    var freezeN = 0;
+    var freezeO = 0;
+    var thetaX = 0.0;
+    var thetaY = 0.0;
 
     // Variabel pointer ke GLSL
     let uModel = gl.getUniformLocation(shaderProgram, "uModel");
@@ -247,6 +314,77 @@ function main() {
         drawing(objects[2].vertices, objects[2].indices, 0, objects[2].length, objects[2].type);
     }
 
+    function onKeyPress(event) {
+        if (event.keyCode == 37) { // left arrow
+            freezeN = 1;
+        } else if (event.keyCode == 39) { // right arrow
+            freezeN = 2;
+        } else if (event.keyCode == 38) { // up arrow
+            freezeA = 1;
+        } else if (event.keyCode == 40) { // down arrow
+            freezeA = 2;
+        }
+    }
+
+    document.addEventListener("keydown", onKeyPress, false);
+
+    const animateI = () =>{
+        var modely = mat4.create();
+        mat4.rotateY(modely, modely, thetaY);
+
+        if (freezeN == 1) {
+            thetaY -= 0.01;
+        } else if (freezeN == 2) {
+            thetaY += 0.01;
+        }
+
+        var uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        var uView = gl.getUniformLocation(shaderProgram, "uView");
+        var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+        gl.uniformMatrix4fv(uModel, false, modely);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uProjection, false, perspective);
+        drawing(objects[3].vertices, objects[3].indices, 0, objects[3].length, objects[3].type);
+    }
+
+    const animateD = () =>{
+        var modely = mat4.create();
+        mat4.rotateY(modely, modely, thetaX);
+
+        if (freezeN == 1) {
+            thetaX -= 0.01;
+        } else if (freezeN == 2) {
+            thetaX += 0.01;
+        }
+
+        var uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        var uView = gl.getUniformLocation(shaderProgram, "uView");
+        var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+        gl.uniformMatrix4fv(uModel, false, modely);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uProjection, false, perspective);
+        drawing(objects[4].vertices, objects[4].indices, 0, objects[4].length, objects[4].type);
+    }
+
+    const animateInD = () =>{
+        var modely = mat4.create();
+        mat4.rotateY(modely, modely, thetaX);
+
+        if (freezeN == 1) {
+            thetaX -= 0.01;
+        } else if (freezeN == 2) {
+            thetaX += 0.01;
+        }
+
+        var uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        var uView = gl.getUniformLocation(shaderProgram, "uView");
+        var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+        gl.uniformMatrix4fv(uModel, false, modely);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uProjection, false, perspective);
+        drawing(objects[5].vertices, objects[5].indices, 0, objects[5].length, objects[5].type);
+    }
+
     // Kita mengajari GPU bagaimana caranya mengoleksi
     //  nilai posisi dari ARRAY_BUFFER
     //  untuk setiap verteks yang sedang diproses
@@ -318,9 +456,12 @@ function main() {
         gl.uniformMatrix4fv(uModel, false, model);
         gl.uniformMatrix4fv(uView, false, view);
         gl.uniformMatrix4fv(uProjection, false, perspective);
-        animate3();
-        animate9();
-        animateIn9();
+        // animate3();
+        // animate9();
+        // animateIn9();
+        animateI();
+        animateInD();
+        animateD();
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
