@@ -5,15 +5,8 @@ function main() {
     const vertices3 = [
         -0.9, 0.3,      0.0,    1, 1, 1,
         -0.9, 0.5,      0.0,    1, 1, 1,
-        // -0.7, 0.5,      0.0,    1, 1, 1,
-        // -0.5, 0.5,      0.0,    1, 1, 1,
         -0.5, 0.5,      0.0,    1, 1, 1,
-        // -0.5, 0.1,      0.0,    1, 1, 1,
-        // -0.5, 0.1,      0.0,    1, 1, 1,
-        // -0.5, -0.1,     0.0,    1, 1, 1,
         -0.5, -0.5,     0.0,    1, 1, 1,
-        // -0.5, -0.5,     0.0,    1, 1, 1,
-        // -0.8, -0.5,     0.0,    1, 1, 1,
         -0.9, -0.5,     0.0,    1, 1, 1,
         -0.9, -0.3,     0.0,    1, 1, 1,
         -0.8, -0.3,     0.0,    1, 1, 1,
@@ -35,18 +28,11 @@ function main() {
     ];
 
     const vertices9 = [
-        // Number 9 (out)
         -0.47, -0.1,    0.0,    1, 1, 1,
         -0.47, 0.5,     0.0,    1, 1, 1,
-        // -0.19, 0.5,     0.0,    1, 1, 1,
-        // -0.09, 0.5,     0.0,    1, 1, 1,
         -0.09, 0.5,     0.0,    1, 1, 1,
-        // -0.09, 0.2,     0.0,    1, 1, 1,
-        // -0.09, 0.3,     0.0,    1, 1, 1,
         -0.09, 0.1,     0.0,    1, 1, 1,
-        // -0.09, -0.3,    0.0,    1, 1, 1,
         -0.09, -0.5,    0.0,    1, 1, 1,
-        // -0.3, -0.5,     0.0,    1, 1, 1,
         -0.47, -0.5,    0.0,    1, 1, 1,
         -0.47, -0.3,    0.0,    1, 1, 1,
         -0.37, -0.3,    0.0,    1, 1, 1,
@@ -74,10 +60,10 @@ function main() {
     ];
 
     const verticesI = [
-        -0.6, -2.5,   0.0,    1, 1, 1,
-        -0.6, -1.2,   0.0,    1, 1, 1,
-        -0.4, -1.2,   0.0,    1, 1, 1,
-        -0.4, -2.5,   0.0,    1, 1, 1,
+        -1.2, -2.5,   0.0,    1, 1, 1,
+        -1.2, -1.2,   0.0,    1, 1, 1,
+        -1.0, -1.2,   0.0,    1, 1, 1,
+        -1.0, -2.5,   0.0,    1, 1, 1,
     ];
 
     const indicesI = [
@@ -203,7 +189,7 @@ function main() {
     let verticalSpeed = 0.0;
     let horizontalDelta = 0.0;
     let verticalDelta = 0.0;
-    let scaleDelta = 0.0;
+    let scaleDelta = 0.4;
     let scaleSpeed = 0.05;
     var freezeN = 0;
     var freezeO = 0;
@@ -338,9 +324,9 @@ function main() {
             thetaY += 0.01;
         }
 
-        var uModel = gl.getUniformLocation(shaderProgram, "uModel");
-        var uView = gl.getUniformLocation(shaderProgram, "uView");
-        var uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+        let uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        let uView = gl.getUniformLocation(shaderProgram, "uView");
+        let uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
         gl.uniformMatrix4fv(uModel, false, modely);
         gl.uniformMatrix4fv(uView, false, view);
         gl.uniformMatrix4fv(uProjection, false, perspective);
@@ -349,7 +335,7 @@ function main() {
 
     const animateD = () =>{
         var modely = mat4.create();
-        mat4.rotateY(modely, modely, thetaX);
+        mat4.rotateX(modely, modely, thetaX);
 
         if (freezeN == 1) {
             thetaX -= 0.01;
@@ -368,7 +354,7 @@ function main() {
 
     const animateInD = () =>{
         var modely = mat4.create();
-        mat4.rotateY(modely, modely, thetaX);
+        mat4.rotateX(modely, modely, thetaX);
 
         if (freezeN == 1) {
             thetaX -= 0.01;
@@ -456,12 +442,13 @@ function main() {
         gl.uniformMatrix4fv(uModel, false, model);
         gl.uniformMatrix4fv(uView, false, view);
         gl.uniformMatrix4fv(uProjection, false, perspective);
-        // animate3();
-        // animate9();
-        // animateIn9();
+        animate3();
+        animate9();
+        animateIn9();
         animateI();
         animateInD();
         animateD();
+        animateInD();
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
