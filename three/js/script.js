@@ -29,10 +29,10 @@ const main = () =>{
 
 
     var verticesI = [
-        0.8, -0.6,   0.0,    1, 1, 1,
-        0.8, 0.5,   0.0,    1, 1, 1,
-        0.6, 0.5,   0.0,    1, 1, 1,
-        0.6, -0.6,   0.0,    1, 1, 1,
+        0.8, -0.6,   1.0,    1, 1, 1,
+        0.8, 0.5,   1.0,    1, 1, 1,
+        0.6, 0.5,   1.0,    1, 1, 1,
+        0.6, -0.6,   1.0,    1, 1, 1,
     ];
 
     var indicesI = [
@@ -278,7 +278,7 @@ const main = () =>{
     document.addEventListener("keydown", onKeydown);
 
     const render = () => {
-        gl.clearColor(0.02, 0.27, 0.37, 1.0);
+        gl.clearColor(0.0, 0.0, 255.0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
         animate3();
         // animate2();
