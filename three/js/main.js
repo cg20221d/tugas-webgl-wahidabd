@@ -101,6 +101,48 @@ function main() {
         11, 12, 13, 14, 15, 16, 17
     ];
 
+    var verticesCube = [
+        // Face A       // Red
+        -1, -1, -1,     1, 0, 0,    // Index:  0
+        1, -1, -1,     1, 0, 0,    // Index:  1
+        1,  1, -1,     1, 0, 0,     // Index:  2
+        -1,  1, -1,     1, 0, 0,     // Index:  3
+        // Face B       // Yellow
+        -1, -1,  1,     1, 1, 0,     // Index:  4
+        1, -1,  1,     1, 1, 0,     // Index:  5
+        1,  1,  1,     1, 1, 0,     // Index:  6
+        -1,  1,  1,     1, 1, 0,     // Index:  7
+        // Face C       // Green
+        -1, -1, -1,     0, 1, 0,     // Index:  8
+        -1,  1, -1,     0, 1, 0,     // Index:  9
+        -1,  1,  1,     0, 1, 0,     // Index: 10
+        -1, -1,  1,     0, 1, 0,     // Index: 11
+        // Face D       // Blue
+        1, -1, -1,     0, 0, 1,     // Index: 12
+        1,  1, -1,     0, 0, 1,     // Index: 13
+        1,  1,  1,     0, 0, 1,     // Index: 14
+        1, -1,  1,     0, 0, 1,      // Index: 15
+        // Face E       // Orange
+        -1, -1, -1,     1, 0.5, 0,    // Index: 16
+        -1, -1,  1,     1, 0.5, 0,    // Index: 17
+        1, -1,  1,     1, 0.5, 0,    // Index: 18
+        1, -1, -1,     1, 0.5, 0,    // Index: 19
+        // Face F       // White
+        -1,  1, -1,     1, 1, 1,      // Index: 20
+        -1,  1,  1,     1, 1, 1,      // Index: 21
+        1,  1,  1,     1, 1, 1,      // Index: 22
+        1,  1, -1,     1, 1, 1,      // Index: 23
+    ];
+
+    var indicesCube = [
+        0, 1, 2,     0, 2, 3,     // Face A
+        4, 5, 6,     4, 6, 7,     // Face B
+        8, 9, 10,    8, 10, 11,   // Face C
+        12, 13, 14,  12, 14, 15,  // Face D
+        16, 17, 18,  16, 18, 19,  // Face E
+        20, 21, 22,  20, 22, 23   // Face F
+    ];
+
     const objects = [
         {
             name: '3',
@@ -144,6 +186,13 @@ function main() {
             length: 7,
             type: gl.TRIANGLE_FAN
         },
+        {
+            name: 'Cube',
+            vertices: verticesCube,
+            indices: indicesCube,
+            length: 19,
+            type: gl.TRIANGLES
+        }
     ];
 
     // Vertex shader
@@ -371,6 +420,19 @@ function main() {
         drawing(objects[5].vertices, objects[5].indices, 0, objects[5].length, objects[5].type);
     }
 
+    const animateCube = () => {
+        let model = glMatrix.mat4.create();
+        let uModel = gl.getUniformLocation(shaderProgram, "uModel");
+        let uView = gl.getUniformLocation(shaderProgram, "uView");
+        let uProjection = gl.getUniformLocation(shaderProgram, "uProjection");
+
+        gl.uniformMatrix4fv(uModel, false, model);
+        gl.uniformMatrix4fv(uView, false, view);
+        gl.uniformMatrix4fv(uProjection, false, perspective);
+
+        drawing(objects[6].vertices, objects[6].indices, 0, objects[6].length, objects[6].type );
+    }
+
     // Kita mengajari GPU bagaimana caranya mengoleksi
     //  nilai posisi dari ARRAY_BUFFER
     //  untuk setiap verteks yang sedang diproses
@@ -449,6 +511,7 @@ function main() {
         animateInD();
         animateD();
         animateInD();
+        animateCube();
         requestAnimationFrame(render);
     }
     requestAnimationFrame(render);
