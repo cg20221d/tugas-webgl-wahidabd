@@ -200,7 +200,7 @@ const main = () =>{
         var uAmbientConstant = gl.getUniformLocation(shaderProgram, "uAmbientConstant");
         var uAmbientIntensity = gl.getUniformLocation(shaderProgram, "uAmbientIntensity");
         gl.uniform3fv(uAmbientConstant, [1.0, 1.0, 1.0]);   // warna sumber cahaya
-        gl.uniform1f(uAmbientIntensity, 0.432);               // intensitas cahaya: 43.2%
+        gl.uniform1f(uAmbientIntensity, 0.339);               // intensitas cahaya: 43.2%
 
         gl.drawElements(type, indices.length, gl.UNSIGNED_SHORT, 0);
     }
